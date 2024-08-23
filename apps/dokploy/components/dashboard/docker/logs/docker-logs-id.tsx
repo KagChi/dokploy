@@ -8,9 +8,10 @@ import "@xterm/xterm/css/xterm.css";
 interface Props {
 	id: string;
 	containerId: string;
+	swarm?: boolean;
 }
 
-export const DockerLogsId: React.FC<Props> = ({ id, containerId }) => {
+export const DockerLogsId: React.FC<Props> = ({ id, containerId, swarm }) => {
 	const [term, setTerm] = React.useState<Terminal>();
 	const [lines, setLines] = React.useState<number>(40);
 
@@ -38,7 +39,7 @@ export const DockerLogsId: React.FC<Props> = ({ id, containerId }) => {
 
 		const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
 
-		const wsUrl = `${protocol}//${window.location.host}/docker-container-logs?containerId=${containerId}&tail=${lines}`;
+		const wsUrl = `${protocol}//${window.location.host}/docker-container-logs?containerId=${containerId}&tail=${lines}&swarm=${swarm ?? false}`;
 		const ws = new WebSocket(wsUrl);
 
 		const fitAddon = new FitAddon();
