@@ -45,7 +45,7 @@ export const setupDockerContainerLogsWebSocketServer = (
 			const shell = getShell();
 			const ptyProcess = spawn(
 				shell,
-				["-c", `docker container logs --tail ${tail} --follow ${containerId}`],
+				["-c", `docker service logs --tail ${tail} --follow ${containerId} | sed 's/^.*@[^ ]* *| *//'`],
 				{
 					name: "xterm-256color",
 					cwd: process.env.HOME,
