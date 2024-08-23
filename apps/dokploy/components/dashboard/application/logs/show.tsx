@@ -30,9 +30,10 @@ export const DockerLogs = dynamic(
 
 interface Props {
 	appName: string;
+	swarm?: boolean;
 }
 
-export const ShowDockerLogs = ({ appName }: Props) => {
+export const ShowDockerLogs = ({ appName, swarm }: Props) => {
 	const { data } = api.docker.getContainersByAppNameMatch.useQuery(
 		{
 			appName,
@@ -81,6 +82,7 @@ export const ShowDockerLogs = ({ appName }: Props) => {
 				<DockerLogs
 					id="terminal"
 					containerId={containerId || "select-a-container"}
+					swarm={swarm || false}
 				/>
 			</CardContent>
 		</Card>
